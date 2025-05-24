@@ -27,7 +27,7 @@ public class ItemVenda {
     private Double valorTotal;
 
     @ManyToOne
-    @JoinColumn(name = "venda_id")
+    @JoinColumn(name = "venda_id", nullable = false)
     private Venda venda;
 
     @ManyToOne

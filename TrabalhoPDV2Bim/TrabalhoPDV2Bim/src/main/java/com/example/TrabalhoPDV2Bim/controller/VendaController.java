@@ -23,6 +23,7 @@ import java.net.URI;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -47,9 +48,11 @@ public class VendaController {
        Cliente cliente = clienteRepository.findById(vendaRequestDTO.getClienteId()).
                orElseThrow(() -> new RuntimeException("Cliente não encontrado"));
 
+       List<ItemVenda> itens = new ArrayList<>();
+
        Venda venda = new Venda();
        venda.setCliente(cliente);
-       venda.setData(Timestamp.valueOf(LocalDateTime.now()));
+       venda.setData(LocalDateTime.now());
        venda.setObservacoes(vendaRequestDTO.getObservacoes());
 
        double total = 0.0;
@@ -64,27 +67,13 @@ public class VendaController {
            itemVenda.setValorTotal(produto.getValor() * itemVendaDTO.getQuantidade());
            itemVenda.setVenda(venda);
 
+           itens.add(itemVenda);
            total += itemVenda.getValorTotal();
        }
 
+       venda.setItens(itens);
        venda.setTotal(total);
        return ResponseEntity.ok(vendaRepository.save(venda));
-
-    }
-
-    @GetMapping("/relatorio")
-    public String vendasPorPeriodo(
-            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate inicio,
-            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fim,
-            Model model){
-
-        List<Venda> vendas = vendaRepository.findByDataBetween(
-                Timestamp.valueOf(inicio.atStartOfDay()),
-                Timestamp.valueOf(fim.atTime(23, 59, 59))
-        );
-
-        model.addAttribute("vendas", vendas);
-        return "relatorioVendas";
 
     }
 

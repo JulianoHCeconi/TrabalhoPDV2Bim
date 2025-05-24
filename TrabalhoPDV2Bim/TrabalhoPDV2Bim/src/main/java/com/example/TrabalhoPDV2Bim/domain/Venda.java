@@ -7,9 +7,12 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.cglib.core.Local;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "vendas")
@@ -21,6 +24,7 @@ public class Venda {
     public Venda(VendaRequestDTO vendaRequestDTO, Cliente cliente){
         this.observacoes = vendaRequestDTO.getObservacoes();
         this.cliente = cliente;
+        this.data = LocalDateTime.now();
     }
 
     @Id
@@ -31,7 +35,7 @@ public class Venda {
     private String observacoes;
 
     @Column(nullable = false)
-    private Timestamp data;
+    private LocalDateTime data;
 
     @Column(nullable = false)
     private Double total;
@@ -39,6 +43,9 @@ public class Venda {
     @ManyToOne
     @JoinColumn(name = "cliente_id")
     private Cliente cliente;
+
+    @OneToMany(mappedBy = "venda", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ItemVenda> itens = new ArrayList<>();
 
 
 }
