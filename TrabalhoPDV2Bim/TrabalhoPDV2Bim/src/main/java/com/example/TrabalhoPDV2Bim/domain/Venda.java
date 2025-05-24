@@ -1,6 +1,7 @@
 package com.example.TrabalhoPDV2Bim.domain;
 
 
+import com.example.TrabalhoPDV2Bim.dto.ClienteRequestDTO;
 import com.example.TrabalhoPDV2Bim.dto.VendaRequestDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -8,6 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "vendas")
@@ -16,19 +18,9 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 public class Venda {
 
-    public Venda(Long id, VendaRequestDTO vendaRequestDTO){
-        this.id = id;
-        this.observacoes = observacoes;
-        this.data = data;
-        this.total = total;
-        this.cliente = cliente;
-    }
-
-    public Venda(VendaRequestDTO vendaRequestDTO){
+    public Venda(VendaRequestDTO vendaRequestDTO, Cliente cliente){
         this.observacoes = vendaRequestDTO.getObservacoes();
-        this.data = getData();
-        this.total = getTotal();
-        this.cliente = getCliente();
+        this.cliente = cliente;
     }
 
     @Id

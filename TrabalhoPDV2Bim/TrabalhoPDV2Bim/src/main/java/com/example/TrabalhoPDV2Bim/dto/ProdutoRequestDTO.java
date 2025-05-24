@@ -18,8 +18,6 @@ public class ProdutoRequestDTO {
     @Size(min = 0, max = 100)
     private String descricao;
 
-    @NotEmpty
-    @NotBlank
     private Double valor;
 
     @NotBlank

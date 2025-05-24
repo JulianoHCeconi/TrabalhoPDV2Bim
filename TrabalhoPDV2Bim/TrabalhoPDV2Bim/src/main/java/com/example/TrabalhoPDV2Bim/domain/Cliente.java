@@ -21,9 +21,9 @@ public class Cliente {
 
     public Cliente(Long id, ClienteRequestDTO clienteRequestDTO){
         this.id = id;
-        this.nome = nome;
-        this.telefone = telefone;
-        this.email = email;
+        this.nome = clienteRequestDTO.getNome();
+        this.telefone = clienteRequestDTO.getTelefone();
+        this.email = clienteRequestDTO.getEmail();
     }
 
     @Id

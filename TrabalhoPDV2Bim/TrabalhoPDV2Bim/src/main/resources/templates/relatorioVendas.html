@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Relatório de Vendas</title>
+</head>
+<body>
+<h1>Vendas entre <span th:text="${#temporals.format(inicio, 'dd/MM/yyyy')}"></span> e <span th:text="${#temporals.format(fim, 'dd/MM/yyyy')}"></span></h1>
+
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>Cliente</th>
+        <th>Total (R$)</th>
+        <th>Data</th>
+    </tr>
+    <tr th:each="venda : ${vendas}">
+        <td th:text="${venda.id}"></td>
+        <td th:text="${venda.cliente.nome}"></td>
+        <td th:text="${#numbers.formatDecimal(venda.total, 1, 2, 'POINT')}"></td>
+        <td th:text="${#temporals.format(venda.data, 'dd/MM/yyyy HH:mm')}"></td>
+    </tr>
+</table>
+</body>
+</html>

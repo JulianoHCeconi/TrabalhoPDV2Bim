@@ -1,7 +1,11 @@
 package com.example.TrabalhoPDV2Bim.controller;
 
+import org.springframework.ui.Model;
+import com.example.TrabalhoPDV2Bim.domain.Cliente;
+import com.example.TrabalhoPDV2Bim.domain.ItemVenda;
 import com.example.TrabalhoPDV2Bim.domain.Produto;
 import com.example.TrabalhoPDV2Bim.domain.Venda;
+import com.example.TrabalhoPDV2Bim.dto.ItemVendaDTO;
 import com.example.TrabalhoPDV2Bim.dto.ProdutoRequestDTO;
 import com.example.TrabalhoPDV2Bim.dto.VendaRequestDTO;
 import com.example.TrabalhoPDV2Bim.repository.ClienteRepository;
@@ -10,15 +14,19 @@ import com.example.TrabalhoPDV2Bim.repository.VendaRepository;
 import com.example.TrabalhoPDV2Bim.service.VendaService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
+import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
-@RequestMapping("/vendas")
+@RequestMapping("api/vendas")
 public class VendaController {
 
     @Autowired
@@ -34,33 +42,50 @@ public class VendaController {
     private VendaService vendaService;
 
     @PostMapping
-    public ResponseEntity<Venda> update(@RequestBody @Valid VendaRequestDTO vendaRequestDTO,
-                                        UriComponentsBuilder builder){
+    public ResponseEntity<Venda> insert(@RequestBody @Valid VendaRequestDTO vendaRequestDTO){
 
-        Venda venda = new Venda(vendaRequestDTO);
-        venda = vendaRepository.save(venda);
+       Cliente cliente = clienteRepository.findById(vendaRequestDTO.getClienteId()).
+               orElseThrow(() -> new RuntimeException("Cliente não encontrado"));
 
-        URI uri = builder.path("/vendas/{id}").
-                buildAndExpand(venda.getId()).toUri();
-        return ResponseEntity.created(uri).body(venda);
+       Venda venda = new Venda();
+       venda.setCliente(cliente);
+       venda.setData(Timestamp.valueOf(LocalDateTime.now()));
+       venda.setObservacoes(vendaRequestDTO.getObservacoes());
+
+       double total = 0.0;
+       for (ItemVendaDTO itemVendaDTO : vendaRequestDTO.getItens()){
+           Produto produto = produtoRepository.findById(itemVendaDTO.getProdutoId())
+                   .orElseThrow(() -> new RuntimeException("Produto não encontrado"));
+
+           ItemVenda itemVenda = new ItemVenda();
+           itemVenda.setProduto(produto);
+           itemVenda.setQuantidade(itemVendaDTO.getQuantidade());
+           itemVenda.setValorUnitario(produto.getValor());
+           itemVenda.setValorTotal(produto.getValor() * itemVendaDTO.getQuantidade());
+           itemVenda.setVenda(venda);
+
+           total += itemVenda.getValorTotal();
+       }
+
+       venda.setTotal(total);
+       return ResponseEntity.ok(vendaRepository.save(venda));
 
     }
 
-    @GetMapping
-    public ResponseEntity<List<Venda>> findAll(
-            @RequestParam(value = "cliente", required = false) String cliente){
-        List<Venda> retorno = vendaRepository.findAll();
+    @GetMapping("/relatorio")
+    public String vendasPorPeriodo(
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate inicio,
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fim,
+            Model model){
 
-        return ResponseEntity.ok(retorno);
-    }
+        List<Venda> vendas = vendaRepository.findByDataBetween(
+                Timestamp.valueOf(inicio.atStartOfDay()),
+                Timestamp.valueOf(fim.atTime(23, 59, 59))
+        );
 
-    @PutMapping
-    public ResponseEntity<Venda> update(@PathVariable Long id,
-                                        @RequestBody @Valid VendaRequestDTO vendaRequestDTO){
+        model.addAttribute("vendas", vendas);
+        return "relatorioVendas";
 
-        Venda venda = new Venda(id, vendaRequestDTO);
-        venda = vendaService.update(venda);
-        return ResponseEntity.ok(venda);
     }
 
 

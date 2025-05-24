@@ -21,9 +21,9 @@ public class Produto {
 
     public Produto(Long id, ProdutoRequestDTO produtoRequestDTO){
         this.id = id;
-        this.descricao = descricao;
-        this.valor = valor;
-        this.categoria = categoria;
+        this.descricao = produtoRequestDTO.getDescricao();
+        this.valor = produtoRequestDTO.getValor();
+        this.categoria = produtoRequestDTO.getCategoria();
     }
 
     @Id

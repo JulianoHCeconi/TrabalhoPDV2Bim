@@ -1,12 +1,15 @@
 package com.example.TrabalhoPDV2Bim.dto;
 
 
+import com.example.TrabalhoPDV2Bim.domain.Cliente;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 @Data
