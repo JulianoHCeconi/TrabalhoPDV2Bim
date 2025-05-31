@@ -19,6 +19,10 @@ public class VendaService {
         return vendaRepository.save(venda);
     }
 
+    public Venda findById(Long id){
+        return vendaRepository.findById(id).get();
+    }
+
     public List<Venda> findAll(String nome){
         return vendaRepository.findAll();
     }

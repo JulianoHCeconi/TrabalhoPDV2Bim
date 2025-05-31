@@ -45,35 +45,35 @@ public class VendaController {
     @PostMapping
     public ResponseEntity<Venda> insert(@RequestBody @Valid VendaRequestDTO vendaRequestDTO){
 
-       Cliente cliente = clienteRepository.findById(vendaRequestDTO.getClienteId()).
-               orElseThrow(() -> new RuntimeException("Cliente não encontrado"));
+        Cliente cliente = clienteRepository.findById(vendaRequestDTO.getClienteId()).
+                orElseThrow(() -> new RuntimeException("Cliente não encontrado"));
 
-       List<ItemVenda> itens = new ArrayList<>();
+        List<ItemVenda> itens = new ArrayList<>();
 
-       Venda venda = new Venda();
-       venda.setCliente(cliente);
-       venda.setData(LocalDateTime.now());
-       venda.setObservacoes(vendaRequestDTO.getObservacoes());
+        Venda venda = new Venda();
+        venda.setCliente(cliente);
+        venda.setData(LocalDateTime.now());
+        venda.setObservacoes(vendaRequestDTO.getObservacoes());
 
-       double total = 0.0;
-       for (ItemVendaDTO itemVendaDTO : vendaRequestDTO.getItens()){
-           Produto produto = produtoRepository.findById(itemVendaDTO.getProdutoId())
-                   .orElseThrow(() -> new RuntimeException("Produto não encontrado"));
+        double total = 0.0;
+        for (ItemVendaDTO itemVendaDTO : vendaRequestDTO.getItens()){
+            Produto produto = produtoRepository.findById(itemVendaDTO.getProdutoId())
+                    .orElseThrow(() -> new RuntimeException("Produto não encontrado"));
 
-           ItemVenda itemVenda = new ItemVenda();
-           itemVenda.setProduto(produto);
-           itemVenda.setQuantidade(itemVendaDTO.getQuantidade());
-           itemVenda.setValorUnitario(produto.getValor());
-           itemVenda.setValorTotal(produto.getValor() * itemVendaDTO.getQuantidade());
-           itemVenda.setVenda(venda);
+            ItemVenda itemVenda = new ItemVenda();
+            itemVenda.setProduto(produto);
+            itemVenda.setQuantidade(itemVendaDTO.getQuantidade());
+            itemVenda.setValorUnitario(produto.getValor());
+            itemVenda.setValorTotal(produto.getValor() * itemVendaDTO.getQuantidade());
+            itemVenda.setVenda(venda);
 
-           itens.add(itemVenda);
-           total += itemVenda.getValorTotal();
-       }
+            itens.add(itemVenda);
+            total += itemVenda.getValorTotal();
+        }
 
-       venda.setItens(itens);
-       venda.setTotal(total);
-       return ResponseEntity.ok(vendaRepository.save(venda));
+        venda.setItens(itens);
+        venda.setTotal(total);
+        return ResponseEntity.ok(vendaRepository.save(venda));
 
     }
 

@@ -1,6 +1,7 @@
 package com.example.TrabalhoPDV2Bim.controller;
 
 
+import com.example.TrabalhoPDV2Bim.domain.Cliente;
 import com.example.TrabalhoPDV2Bim.domain.Produto;
 import com.example.TrabalhoPDV2Bim.dto.ProdutoRequestDTO;
 import com.example.TrabalhoPDV2Bim.service.ProdutoService;
@@ -41,6 +42,17 @@ public class ProdutoController {
         List<Produto> retorno = produtoService.findAll(nome);
         return ResponseEntity.ok(retorno);
 
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Produto> buscarPorId(@PathVariable Long id) {
+        Produto produto = produtoService.findById(id).orElse(null);
+
+        if (produto != null) {
+            return ResponseEntity.ok(produto);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @PutMapping("{id}")

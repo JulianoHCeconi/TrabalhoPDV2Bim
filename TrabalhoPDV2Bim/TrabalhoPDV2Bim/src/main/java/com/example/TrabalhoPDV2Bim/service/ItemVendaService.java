@@ -11,22 +11,22 @@ import java.util.List;
 public class ItemVendaService {
 
     @Autowired
-    private ItemVendaRepository item_vendaRepository;
+    private ItemVendaRepository itemVendaRepository;
 
     public ItemVenda insert(ItemVenda itemVenda){
-        return item_vendaRepository.save(itemVenda);
+        return itemVendaRepository.save(itemVenda);
     }
 
     public List<ItemVenda> findAll(Long vendaId, Long produtoId){
-        return item_vendaRepository.findAll();
+        return itemVendaRepository.findAll();
     }
 
     public void delete(Long id){
-        item_vendaRepository.deleteById(id);
+        itemVendaRepository.deleteById(id);
     }
 
     public ItemVenda update(ItemVenda itemVenda){
-        return item_vendaRepository.save(itemVenda);
+        return itemVendaRepository.save(itemVenda);
     }
 
 }
