@@ -1,13 +1,12 @@
-view\RelatorioFrame.class
 view\TelaDeVendaFrame$7.class
 view\TelaDeVendaFrame.class
 view\TelaInicialFrame$1.class
 view\TelaDeVendaFrame$2.class
 com\mycompany\trabalhopdv2bim\TrabalhoPDV2Bim.class
 conexaoDB\ConexaoDB.class
+model\Produto.class
 dto\ClienteDTO.class
 dao\ItemVendaDAO.class
-view\RelatorioFrame$1.class
 dao\GenericDAO.class
 view\TelaDeVendaFrame$4.class
 view\TelaInicialFrame$2.class
@@ -15,6 +14,7 @@ model\Venda.class
 dto\VendaRequestDTO.class
 view\TelaDeVendaFrame$1.class
 dao\VendaDAO.class
+dao\ProdutoDAO.class
 dto\ProdutoDTO.class
 dto\VendaDTO.class
 dto\ItemVendaDTO.class
@@ -26,4 +26,5 @@ services\ClienteService.class
 view\TelaDeVendaFrame$3.class
 view\TelaInicialFrame.class
 services\ProdutoService.class
+view\TelaDeVendaFrame$8.class
 services\ItemVendaService.class

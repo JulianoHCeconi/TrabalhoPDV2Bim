@@ -6,10 +6,11 @@ C:\Users\julia\OneDrive\Documentos\NetBeansProjects\TrabalhoPDV2BimDesktop\src\m
 C:\Users\julia\OneDrive\Documentos\NetBeansProjects\TrabalhoPDV2BimDesktop\src\main\java\view\TelaInicialFrame.java
 C:\Users\julia\OneDrive\Documentos\NetBeansProjects\TrabalhoPDV2BimDesktop\src\main\java\services\ItemVendaService.java
 C:\Users\julia\OneDrive\Documentos\NetBeansProjects\TrabalhoPDV2BimDesktop\src\main\java\dto\VendaDTO.java
+C:\Users\julia\OneDrive\Documentos\NetBeansProjects\TrabalhoPDV2BimDesktop\src\main\java\model\Produto.java
 C:\Users\julia\OneDrive\Documentos\NetBeansProjects\TrabalhoPDV2BimDesktop\src\main\java\dao\ItemVendaDAO.java
 C:\Users\julia\OneDrive\Documentos\NetBeansProjects\TrabalhoPDV2BimDesktop\src\main\java\services\ClienteService.java
+C:\Users\julia\OneDrive\Documentos\NetBeansProjects\TrabalhoPDV2BimDesktop\src\main\java\dao\ProdutoDAO.java
 C:\Users\julia\OneDrive\Documentos\NetBeansProjects\TrabalhoPDV2BimDesktop\src\main\java\model\Venda.java
-C:\Users\julia\OneDrive\Documentos\NetBeansProjects\TrabalhoPDV2BimDesktop\src\main\java\view\RelatorioFrame.java
 C:\Users\julia\OneDrive\Documentos\NetBeansProjects\TrabalhoPDV2BimDesktop\src\main\java\model\ItemVenda.java
 C:\Users\julia\OneDrive\Documentos\NetBeansProjects\TrabalhoPDV2BimDesktop\src\main\java\services\ProdutoService.java
 C:\Users\julia\OneDrive\Documentos\NetBeansProjects\TrabalhoPDV2BimDesktop\src\main\java\view\TelaDeVendaFrame.java
