@@ -27,10 +27,8 @@ import services.VendaService;
 
 public class TelaDeVendaFrame extends javax.swing.JFrame {
 
-    private VendaDAO vendaDAO;
     private List<ItemVenda> listaDeItens = new ArrayList<>();
     private List<ItemVendaDTO> listaDeItensDTO = new ArrayList<>();
-    private ArrayList<ProdutoDTO> listaProduto;
     
     public TelaDeVendaFrame() {
         initComponents();
@@ -43,7 +41,6 @@ public class TelaDeVendaFrame extends javax.swing.JFrame {
     public void atualizaTabela(){
         
         try{
-        ProdutoDAO produtoDAO = new ProdutoDAO();
         
         DefaultTableModel tableModel = 
                     new DefaultTableModel(new Object[][]{},
@@ -491,6 +488,9 @@ public class TelaDeVendaFrame extends javax.swing.JFrame {
         String observacoes = tfObservacoes.getText();
         Long clienteId = Long.parseLong(tfIdCliente.getText());
         Timestamp data = new Timestamp(System.currentTimeMillis());
+        String nomeCliente = tfNome.getText();
+        String telefone = tfTelefone.getText();
+        String email = tfEmail.getText();
 
         double total = 0;
         for (ItemVenda item : listaDeItens) {
@@ -502,6 +502,9 @@ public class TelaDeVendaFrame extends javax.swing.JFrame {
         venda.setTotal(total);
         venda.setCliente_id(clienteId);
         venda.setData(data);
+        venda.setNomeCliente(nomeCliente);
+        venda.setTelefoneCliente(telefone);
+        venda.setEmailCliente(email);
 
         VendaDAO vendaDAO = new VendaDAO();
         Long vendaId = vendaDAO.salvarERetornarId(venda);

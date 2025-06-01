@@ -5,6 +5,7 @@ view\TelaDeVendaFrame$2.class
 com\mycompany\trabalhopdv2bim\TrabalhoPDV2Bim.class
 conexaoDB\ConexaoDB.class
 model\Produto.class
+view\TelaInicialFrame$3.class
 dto\ClienteDTO.class
 dao\ItemVendaDAO.class
 dao\GenericDAO.class
