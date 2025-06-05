@@ -105,7 +105,7 @@ public class TelaDeVendaFrame extends javax.swing.JFrame {
         tbProdutos = new javax.swing.JTable();
         jLabel13 = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "CLIENTE", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 0, 24))); // NOI18N
 
@@ -595,9 +595,6 @@ public class TelaDeVendaFrame extends javax.swing.JFrame {
             
             atualizaTabela();
             
-            for(ItemVenda i : listaDeItens){
-                valorTotal += i.getValorTotal();
-            }
 
             
             lbValorTotal.setText(String.format("%.2f", valorTotal));

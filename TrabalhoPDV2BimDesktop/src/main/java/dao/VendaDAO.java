@@ -120,7 +120,7 @@ public class VendaDAO extends GenericDAO<Venda>{
         try {
             
             //Responsavel por carregar o relatório
-            String relatorioPath = "relatorios/RelatorioVendas.jasper";
+            String relatorioPath = "relatorios/RelatorioDetalhadoDeVendas.jasper";
             JasperPrint printer = JasperFillManager.fillReport(relatorioPath, null, conn);
             
             //Exibir o relatorio
